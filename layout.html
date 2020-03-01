@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+#header {
+    background-color: black;
+}
+
+#right-sidebar {
+    width: 200px;
+    margin-left: -100%;
+    float: right;
+    background-color: black;
+}
+
+#left-sidebar {
+    width: 200px;
+	
+    float: left;
+    background-color: black;
+    position: relative;
+    z-index: 2;
+}
+
+#content {
+    
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding-right: 200px;
+    margin-left: -200px;
+    padding-left: 200px;
+}
+
+th,td {
+  border: 1px  gray;
+   color: white;
+}
+
+td:hover {
+background-color:gray;
+color: white;
+}
+
+table.d {
+  table-layout: fixed;
+  width: 100%;  
+  color: white;
+}
+
+.clearfix {
+  overflow: auto;
+  margin: auto;
+  width: 50%;
+  border: 3px solid gray;
+  padding: 10px;
+}
+.clearfixSjedenje {
+  overflow: auto;
+  margin: auto;
+  width: 20%;
+  border: 3px solid gray;
+  padding: 5px;
+}
+
+.img1 {
+  float: right;
+}
+
+.img2 {
+  float: left;
+  padding: 10px;
+}
+.img3 {
+  
+}
+        </style >
+</head>
+<body onload="myFunction()"  bgcolor="black" >
+
+
+
+
+
+<div id="wrapper">
+  <div id="header"> 
+ 
+   <table style="width:100%">
+    
+  <tr>
+    
+    <td align = "left"><img class="img3" src="slike/proright.jpg"></td>
+    <td> <h1 align = "center"><font color="White">KINA SA 5 ZVJEZDICA</h1></td>
+	<td align = "right"><img  class="img3" src="slike/proleft.png"></td>
+	
+  </tr>
+   
+</table> 
+  </div>
+<br>
+  <div id="left-sidebar">
+   <table style="width:100%">
+    
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr>   
+   
+  </table> 
+  </div>
+  
+  
+  
+  <div style="color: white" align = "center" id="content">
+   
+	<button onclick="myFunction()">Filmovi</button>
+    <button onclick="myFunction2()">Tjedni Raspored</button>
+    
+    
+	<button onclick="kosarica()">Košarica</button>
+
+    <p id="demo"></p>
+	
+    
+  </div>
+  
+  
+  
+  
+  <div id="right-sidebar">
+  
+   <table style="width:100%">
+    
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr> 
+  <tr>
+     <td align = "center"><img class="img3" src="slike/Starhalf.jpg"  ><br></td>
+  </tr>   
+   
+  </table> 
+  
+  </div>
+</div>
+
+
+
+
+
+
+
+<script>
+var brojkarti;
+var cijenakarte = [0,20,30,35];
+var kartevrsta=["","Standard","Vip","Ljubavna"]
+var sumakarti;
+var cijenajedne;
+var starty=0;
+var startx=0;
+
+//global odabir sjedala
+var Gvrstakarte;
+var Gfilm;
+var Gdan;
+var Gtermin;
+var Gtexttermin;
+
+
+var setcount=0;
+/*
+Gfilm=film;
+Gdan=dan;
+Gtermin=termin;
+*/
+
+var dani = ["1", "Ponedjeljak","utorak","Srijeda","Četvrtak","Petak","Subota","Nedjelja"];
+//služi mjesto baze podataka za prvu stranicu
+  var filmovi = 
+  [
+   ["Nevidljivi", "slike/Nevidljivi.jpg", "Nevidljivi Čovjek <br> Žanr: triler <br> Trajanje: 125 minuta"],
+   ["no_time_to_die", "slike/no_time_to_die.jpg", "Za smrt nema vremena	<br>Žanr: akcija<br>Trajanje: 164 minuta"],
+   ["naprijed_sink", "slike/naprijed_sink.jpg", "Naprijed Sink <br>Žanr: animirani <br> Trajanje: 102 minuta Država: SAD"],
+   ["21 most", "slike/21most.jpg", "21 most <br> Žanr: kriminalistički, triler <br>Trajanje: 99 minuta"],
+  ];
+
+  var termini = 
+  [
+   ["1","13:30;;14:40;;19:30","13:30;;19:30","13:30;;19:30","13:30;;19:30","13:30;;19:30","13:30;;19:30","13:30;;19:30"],
+   ["2","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30"],
+   ["3","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30"],
+   ["4","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30","14:30;;19:30"],
+  ];
+
+
+var statvip = [0,0,0,0,0,0,0,0,0,0];
+var statljubavna = [0,0,0,0,0,0,0,0,0,0];
+
+ var statstandard = 
+  [
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0],
+  ];
+  
+var varkosarica = [          
+				 ];
+var zauzetaStandard=[];
+var zauzetaVip=[];
+var zauzetaLjubavna=[];
+  
+function myFunction() {
+  
+  
+  var stringtest="";
+    
+  var i;
+  for (i = 0; i < filmovi.length; i++) 
+      {
+       stringtest=stringtest.concat("<div class=\"clearfix\"> <img onclick=\"myFunction2()\"  class=\"img2\" src=\""+ filmovi[i][1]+"\" alt=\"Pineapple\" width=\"300\" height=\"300\">" + filmovi[i][2]+"</div>");
+      } 
+  
+  document.getElementById("demo").innerHTML = stringtest;
+  setcount++;
+}
+
+function myFunction2() {
+  
+  var j;
+  var q;
+  var res;
+  var film;
+  
+  //početak i div moraju biti izvan for petlji
+  var string2 ="<div class=\"clearfix\"> <table  style=\"width:100%\">"; 
+      string2 =string2.concat("<tr> <th align = \"left\">Naziv</th> <th align = \"left\"  >Ponedjeljak</th> <th align = \"left\" >utorak</th><th align = \"left\" >Srijeda</th><th align = \"left\" >Četvrtak</th><th align = \"left\" >petak</th><th align = \"left\" >Subota</th><th align = \"left\" >Nedjelja</th> </tr>"); 
+	  
+	  //prođi listu i dodaj svaki film
+	  for (film = 0; film < filmovi.length; film++) 
+      {
+	  string2 =string2.concat("<tr>");
+	  string2 =string2.concat("<td><img class=\"img2\" src=\""+ filmovi[film][1]+"\" alt=\"Nevidljivi\" width=\"50\" height=\"50\"> "+ filmovi[film][2]+"</td> ");   
+	 
+	
+	  //za sve dane u tjednu
+	  for (q = 1; q < 8; q++) 
+      {
+	  //ovdje odvaja termine filmova
+	    res = termini[film][q].split(";;");
+		//početak reda
+	    string2 =string2.concat("<td>");
+	      //za svako rveme treba posebna obrada
+	      for (j = 0; j < res.length; j++) 
+          {
+	         string2 =string2.concat( "<p onclick=\"IzborTermina("+film+","+q+","+j+",'"+ res[j]+"')\" >"+ res[j]+"</p>");
+	      }
+	    string2 =string2.concat("</td>");
+	  }
+	  //dodaj kraj reda	  
+	  string2 =string2.concat("</tr> ");  
+	  }
+	  //kraj tablice i diva mora biti izvan petlji
+	  string2 =string2.concat("</table> </div>");
+	  
+	  
+ 
+  document.getElementById("demo").innerHTML =string2; 
+   
+}
+
+function myFunction3() 
+{
+ var red;
+ var kolona;
+ var x;
+ var y;
+ 
+ //gornji dio slika naziv termin
+ var filmdiv ="<div class=\"clearfixSjedenje\">"; 
+     filmdiv =filmdiv.concat("<table  align=\"center\" style=\"width:100%\">");
+	 filmdiv =filmdiv.concat("<tr>");
+	 filmdiv =filmdiv.concat("<td><img class=\"img2\" src=\""+ filmovi[Gfilm][1]+"\"  width=\"100\" height=\"100\"> </td> "); 
+	 filmdiv =filmdiv.concat("<\tr>");
+	 
+	 filmdiv =filmdiv.concat("<tr>");
+	 filmdiv =filmdiv.concat("<td>"+ filmovi[Gfilm][2]+"</td> "); 
+	 filmdiv =filmdiv.concat("<\tr>");
+	 
+	 filmdiv =filmdiv.concat("<tr>");
+	 filmdiv =filmdiv.concat("<td align=\"center\" ><h1>"+dani[Gdan]+" :  " +Gtexttermin+ "</h1></td> "); 
+	 filmdiv =filmdiv.concat("<\tr>");
+	 //kraj tablice i diva mora biti izvan petlji
+	  filmdiv =filmdiv.concat("</table> </div><br>");
+ 
+ 
+ //pojefinosti o broju i vrsti karata
+ var string1 ="<div class=\"clearfix\">"; 
+     string1 =string1.concat("<table class=\"d\"  align=\"center\" id=\"vkarte\" style=\"width:100%\">");
+	 
+     string1 =string1.concat("<tr>");
+	 string1 =string1.concat("<td> <input type=\"text\" name=\"txt\" value=\"0\" onchange=\"brojkarata(this.value)\"> </td>");
+     string1 =string1.concat("<td>0</td>");
+	 string1 =string1.concat("<td>0</td>");
+	 string1 =string1.concat("<td align=\"center\">");
+	 string1 =string1.concat("<select id=\"vrstakarte\" onchange=\"vrstakarte(this.value)\">");
+	 string1 =string1.concat("<option value=\"0\">Vrsta</option>");
+     string1 =string1.concat("<option value=\"1\">Standard</option>");
+     string1 =string1.concat("<option value=\"2\">Vip</option>");
+     string1 =string1.concat("<option value=\"3\">Ljubavna\</option>");
+     string1 =string1.concat("</select>");
+	 string1 =string1.concat("</td>");
+	 
+	 string1 =string1.concat("</tr>");	
+	 
+	 
+	 
+	 string1 =string1.concat("</table>");
+     
+	 string1 =string1.concat("<table align=\"center\" style=\"width:90%\">");
+	 string1 =string1.concat("<br><td align=\"center\"> <button onclick=\"potvrdikupnju()\"><h3>Potvrdi kupnju</h3></button> </td>");
+	 string1 =string1.concat("</table>");
+	 
+     string1 =string1.concat("</div>");
+     string1 =string1.concat("<br>");
+ 
+ 
+ var string2 ="<div class=\"clearfixSjedenje\">"; 
+ 
+    //platno
+	string2 =string2.concat("<table align=\"center\" style=\"width:90%\">");
+	string2 =string2.concat("<td align=\"center\"> Platno </td>");
+	string2 =string2.concat("</table>");
+     string2 =string2.concat("<br>");
+	 
+	 //Standard
+    string2 =string2.concat("<table align=\"center\" id=\"standard\" style=\"width:90%\">"); 
+ 	
+	 for (x = 0; x < 10; x++) //red
+      {
+	  string2 =string2.concat("<tr>");
+	 
+	 for (y = 0; y < 10; y++) //sjedalo
+      {
+	  string2 =string2.concat("<td onclick=\"FOnChange('standard',"+x+","+y+")\" align=\"center\"> <img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\"> </td>");
+	  }
+	 
+	  string2 =string2.concat("</tr>");
+
+	  }
+	
+    //kraj tablice i diva mora biti izvan petlji
+	//kraj table 1
+	string2 =string2.concat("</table>");
+	
+	//vip
+    string2 =string2.concat("<br>");
+	string2 =string2.concat("<table align=\"center\" id=\"vip\" style=\"width:90%\">");
+	string2 =string2.concat("<tr>");
+	for (y = 0; y < 10; y++) //sjedalo
+      {
+	  string2 =string2.concat("<td onclick=\"FOnChange('vip',"+0+","+y+")\" align=\"center\"> <img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\"> </td>");
+	  }
+	string2 =string2.concat("</tr>");
+	string2 =string2.concat("</table>");
+	
+	//ljubavna
+	string2 =string2.concat("<br>");
+	string2 =string2.concat("<table align=\"center\" id=\"ljubavna\" style=\"width:90%\">");
+	string2 =string2.concat("<tr>");
+	for (y = 0; y < 5; y++) //sjedalo
+      {
+	  string2 =string2.concat("<td onclick=\"FOnChange('ljubavna',"+0+","+y+")\" align=\"center\"> <img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\"> </td>");
+	  }
+	string2 =string2.concat("</tr>")
+	string2 =string2.concat("</table>");
+	
+     // kraj diva
+	string2 =string2.concat("</div>");
+    document.getElementById("demo").innerHTML =filmdiv+string1+string2; 
+	
+}
+
+function FOnChange(Wtable,x,y) 
+{
+    //var myTable = document.getElementById(standard);
+	//    standard.rows[x].cells[y].innerHTML = '<img class=\"img3\" src=\"stolica/siva.jpg\"  width=\"20\" height=\"20\">';
+	if(Wtable=='vip')
+	{
+	  if(statvip[y]==0)
+	   {
+	    document.getElementById(Wtable).rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\">";
+	    statvip[y]=1;
+	   }
+	  else if(statvip[y]==1)
+	   {
+	    document.getElementById(Wtable).rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";
+	    statvip[y]=0;
+	   }
+	
+	}
+	
+	if(Wtable=='ljubavna')
+	{
+	  if(statljubavna[y]==0)
+	   {
+	    document.getElementById(Wtable).rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";
+	    statljubavna[y]=1;
+	   }
+	  else if(statljubavna[y]==1)
+	   {
+	    document.getElementById(Wtable).rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\">";
+	    statljubavna[y]=0;
+	   }
+	
+	}
+	
+    if(Wtable=='standard')
+	{
+	  if(statstandard[x][y]==0)
+	   {
+	    document.getElementById(Wtable).rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";
+	    statstandard[x][y]=1;
+	   }
+	  else if(statstandard[x][y]==1)
+	   {
+	    document.getElementById(Wtable).rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\">";
+	    statstandard[x][y]=0;
+	   }
+	
+	}
+	
+}
+
+function potvrdikupnju()
+{
+//alert("test");
+var lzstandard="";
+var lzsvip="";
+var lbrojac ="";
+ var x;
+ var y;
+ //standard
+  for (x = 0; x < 10; x++) //red
+      {
+	    	 
+	   for (y = 0; y < 10; y++) //sjedalo
+           {
+		     if(statstandard[x][y]==1)
+			 {
+			    document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/siva.jpg\"  width=\"20\" height=\"20\">";
+			    statstandard[x][y]=2;
+			 }
+			 
+			 if(statstandard[x][y]>0)
+			 {
+			  if(lbrojac>0)
+			 {
+			 lzstandard=lzstandard+";;"+",";
+			 lzstandard=lzstandard+x+";;"+y;
+			 lbrojac++;
+			 }
+			 else{lzstandard=lzstandard+x+";;"+y;lbrojac++;}
+			 }
+			
+			 
+			 
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+	  }	
+
+	  
+ //vip
+ lbrojac=0;
+ x=0;
+  for (y = 0; y < 10; y++) //sjedalo
+           {
+		     if(statvip[y]==1)
+			 {
+			    document.getElementById('vip').rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/siva.jpg\"  width=\"20\" height=\"20\">";
+			    statvip[y]=2;
+			 }
+			 
+			  if(statvip[x][y]>0)
+			 {
+			  if(lbrojac>0)
+			 {
+			 lzsvip=lzsvip+";;"+",";
+			 lzsvip=lzsvip+x+";;"+y;
+			 lbrojac++;
+			 }
+			 else{lzsvip=lzsvip+x+";;"+y;lbrojac++;}
+			 }
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+
+		   
+	//ljubavna
+  for (y = 0; y < 5; y++) //sjedalo
+           {
+		     if(statljubavna[y]==1)
+			 {
+			    document.getElementById('ljubavna').rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/siva.jpg\"  width=\"20\" height=\"20\">";
+			    statljubavna[y]=2;
+			 }
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+		   
+		//čuvanje zauzetih nedovršeno
+zauzetaStandard.push( [Gfilm,Gdan,Gtermin,lzstandard] );
+zauzetaVip.push( [Gfilm,Gdan,Gtermin,lzsvip] );
+   
+    var Lfilm=Gfilm;
+	 var Ldan =Gdan;
+	 var Ltermin =Gtexttermin; //gtermin
+	 var Lvrstakarte=Gvrstakarte;
+	 var Lkarti=brojkarti;
+	 var Lred=startx;
+	 var Lsjedala="";
+	 var Lcijena=cijenakarte[Gvrstakarte];
+	 var Lukupno=sumakarti;
+	 
+	 var brojac=0;
+	 for (y = starty; y < starty+brojkarti; y++) //sjedalo
+           {
+		    if (brojac>0)
+		    {
+		    Lsjedala=Lsjedala+";;";
+		    Lsjedala=Lsjedala+y;
+			brojac++;
+			}
+		    else{Lsjedala=Lsjedala+y;brojac++;}
+		   }	
+	   
+     varkosarica.push( [Lfilm,Ldan,Gtexttermin,Lvrstakarte,Lkarti,Lred,Lsjedala,Lcijena,Lukupno] );
+
+
+}
+
+function Ocistinepotvrdene()
+{
+//alert("test");
+ 
+ var x;
+ var y;
+ //standard
+  for (x = 0; x < 10; x++) //red
+      {
+	    	 
+	   for (y = 0; y < 10; y++) //sjedalo
+           {
+		     if(statstandard[x][y]!=2)
+			 {
+			    document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\">";
+			    statstandard[x][y]=0;
+			 }
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+	  }	
+
+	  
+ //vip
+  for (y = 0; y < 10; y++) //sjedalo
+           {
+		     if(statvip[y]!=2)
+			 {
+			    document.getElementById('vip').rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";
+			    statvip[y]=0;
+			 }
+			 
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+
+		   
+	//ljubavna
+  for (y = 0; y < 5; y++) //sjedalo
+           {
+		     if(statljubavna[y]!=2)
+			 {
+			    document.getElementById('ljubavna').rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\">";
+			    statljubavna[y]=0;
+			 }
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+
+
+}
+
+function OcistiMatrice()
+{
+//alert("test");
+ 
+ var x;
+ var y;
+ //standard
+  for (x = 0; x < 10; x++) //red
+      {
+	    	 
+	   for (y = 0; y < 10; y++) //sjedalo
+           {
+		     
+			  statstandard[x][y]=0;
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+	  }	
+
+	  
+ //vip
+  for (y = 0; y < 10; y++) //sjedalo
+           {
+		     
+			  statvip[y]=0;
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+
+		   
+	//ljubavna
+  for (y = 0; y < 5; y++) //sjedalo
+           {
+		     
+			  statljubavna[y]=0;
+			 //else{document.getElementById('standard').rows[x].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";}
+	       }
+
+
+}
+
+
+function vrstakarte(val)
+{
+
+//<button onclick="sugestseats(0,0)">sugestseats</button>
+//alert("The input value has changed. The new value is: " + val);
+var e = parseInt(val);
+Gvrstakarte=e;//radi dohvata naziva u računu
+cijenajedne=cijenakarte[e];
+document.getElementById('vkarte').rows[0].cells.item(1).innerHTML=cijenajedne;
+  if(cijenajedne >0)
+  {
+    brojkarata(brojkarti);
+  }
+  else
+  {
+  document.getElementById('vkarte').rows[0].cells.item(1).innerHTML=cijenajedne;
+  document.getElementById('vkarte').rows[0].cells.item(2).innerHTML=cijenajedne;
+  }
+
+}
+
+function brojkarata(val) 
+{
+brojkarti = parseInt(val);
+if(cijenajedne>0 && brojkarti>0)
+{
+sugestseats(0,0);
+sumakarti = brojkarti * cijenajedne;
+document.getElementById('vkarte').rows[0].cells.item(2).innerHTML=sumakarti;
+}
+}
+
+//traži određeni broj sjedala za redom
+function sugestseats(ux,uy)
+{
+Ocistinepotvrdene();
+var x=0;
+ var y=0;
+ var z=0;
+  starty=0;
+  startx=0;
+ var stat=0;
+
+//Standardne kartevrsta
+if(Gvrstakarte==1)
+  {
+  for (x = ux; x < 10; x++) //red
+  {
+  
+    for (y = uy; y < 10; y++) //sjedalo
+           {  stat=0; //poništi oznaku greške
+		      
+			  //ako do kraja reda nema dovoljno mjesta prekini
+		      if(y + brojkarti <10)
+		        {
+				//provjerava dali su sva mjesta prazna
+		          for(z = 0; z < brojkarti; z++)
+				  {  //ako je ijedno mjesto zauzeto prekini i kreni dalje
+				    if(statstandard[x][y+z]==2)
+			          {
+					   stat=1;
+			           break;
+			          }
+					  else{starty=y; startx=x;} 
+				  }
+				  if(stat==0)
+				  {//ako su mjesta prazna označi početak
+				 
+				  starty=y; startx=x;
+				  break;
+				  }
+		        }
+				else{break;}
+
+               
+            } 
+			
+     //ako je našao mjesta promijeni boju stolica/crna
+    if(stat==0)
+		{
+		  for (y = starty; y < starty+brojkarti; y++) //sjedalo
+               {
+		        document.getElementById('standard').rows[startx].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";
+		       statstandard[startx][y]=1;
+			   
+			   }
+		break;
+		}
+        else{}
+ 
+  }
+}
+
+   //prolazi cijeli vip red
+  if(Gvrstakarte==2)
+  {// alert("VIP2");
+  for (y = uy; y < 11; y++) //sjedalo
+           {  stat=0; //poništi oznaku greške
+		      
+			  //ako do kraja reda nema dovoljno mjesta prekini
+		      if(y + brojkarti <10)
+		        {
+				//provjerava dali su sva mjesta prazna
+		          for(z = 0; z < brojkarti; z++)
+				  {  //ako je ijedno mjesto zauzeto prekini i kreni dalje
+				    if(statvip[y+z]==2)
+			          {
+					   stat=1;
+			           break;
+			          }
+					  else{starty=y;} 
+				  }
+				  if(stat==0)
+				  {//ako su mjesta prazna označi početak
+				 
+				  starty=y;
+				  break;
+				  }
+		        }
+				else{break;}
+
+               
+            } 
+			
+     //ako je našao mjesta promijeni boju stolica/crna
+    if(stat==0)
+		{
+		  for (y = starty; y < starty+brojkarti; y++) //sjedalo
+               {
+		        document.getElementById('vip').rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crna.jpg\"  width=\"20\" height=\"20\">";
+		       statvip[y]=1;
+			   }
+		}
+        else{}
+ 
+  }
+  
+  //prolazi ljubavne
+  if(Gvrstakarte==3)
+  {
+ 
+  for (y = uy; y < 6; y++) //sjedalo
+           {  stat=0; //poništi oznaku greške
+		      
+			  //ako do kraja reda nema dovoljno mjesta prekini
+		      if(y + brojkarti <6)
+		        {
+				//provjerava dali su sva mjesta prazna
+		          for(z = 0; z < brojkarti; z++)
+				  {  //ako je ijedno mjesto zauzeto prekini i kreni dalje
+				    if(statljubavna[y+z]==2)
+			          {
+					   stat=1;
+			           break;
+			          }
+					  else{starty=y;} 
+				  }
+				  if(stat==0)
+				  {//ako su mjesta prazna označi početak
+				 
+				  starty=y;
+				  break;
+				  }
+		        }
+				else{break;}
+
+               
+            } 
+			
+     //ako je našao mjesta promijeni boju stolica/crvena
+    if(stat==0)
+		{
+		  for (y = starty; y < starty+brojkarti; y++) //sjedalo
+               {
+		        document.getElementById('ljubavna').rows[0].cells.item(y).innerHTML= "<img class=\"img3\" src=\"stolica/crvena.jpg\"  width=\"20\" height=\"20\">";
+		       statljubavna[y]=1;
+			   }
+		}
+        else{}
+ 
+  }
+  
+ 
+} 
+ 
+ 
+ 
+function IzborTermina(film,dan,termin,texttermin)
+{
+Gfilm=film;
+Gdan=dan;
+Gtermin=termin;
+Gtexttermin=texttermin;
+myFunction3() ;
+OcistiMatrice()
+zauzetaSjedala();
+// alert(film+" "+dan+" "+termin+" "+texttermin)
+}
+
+//račun
+function kosarica() {
+  
+  
+  var j;
+  var q;
+  var res;
+  var film;
+  var suma=0;
+  
+  //početak i div moraju biti izvan for petlji
+  var string2 ="<div class=\"clearfix\"> <table  style=\"width:100%\">"; 
+      string2 =string2.concat("<tr> <th align = \"left\">Film</th> <th align = \"left\">Dan</th><th align = \"left\">Termin</th><th align = \"left\">Vrsta</th><th align = \"left\">Karti</th><th align = \"left\">Red</th> <th align = \"left\">sjedala</th><th align = \"left\">Cijena</th><th align = \"left\">ukupno</th></tr>"); 
+	
+	for (q = 0; q < varkosarica.length; q++) 
+          {
+	        
+	      
+		  
+	 var Lfilm=filmovi[varkosarica[q][0]][0];
+	 var Ldan =dani[varkosarica[q][1]];
+	 var Ltermin =varkosarica[q][2]; //gtermin
+	 var Lvrstakarte=kartevrsta[varkosarica[0][3]];
+	 var Lkarti=varkosarica[q][4];;
+	 var Lred=varkosarica[q][5];;
+	 var Lsjedala="";
+	 var Lcijena=varkosarica[q][7];;
+	 var Lukupno=varkosarica[q][8];;
+	 
+	 var test =varkosarica[q][6];
+	 res = test.split(";;");
+	 for (j = 0; j < res.length; j++) 
+          {
+	        Lsjedala=Lsjedala+res[j]+",";
+	      }
+	 suma=suma+Lukupno;
+		
+	string2 =string2.concat("<tr> ");
+	string2 =string2.concat("<td  >"+Lfilm+"</td> ");
+	string2 =string2.concat("<td  >"+Ldan+"</td>");
+	string2 =string2.concat("<td  >"+Ltermin+"</td>");
+	string2 =string2.concat("<td  >"+Lvrstakarte+"</td> ");
+	string2 =string2.concat("<td  >"+Lkarti+"</td> ");
+	string2 =string2.concat("<td  >"+Lred+"</td> ");
+	string2 =string2.concat("<td  >"+Lsjedala+"</td>");
+	string2 =string2.concat("<td  >"+Lcijena+"</td>");
+	string2 =string2.concat("<td  >"+Lukupno+"</td>");
+	string2 =string2.concat("</tr>"); 	
+	
+	}
+	
+	
+	string2 =string2.concat("</table> ");
+	
+	string2 =string2.concat("<table style=\"width:100%\">");
+      string2 =string2.concat("<tr>");
+	  string2 =string2.concat("<td align=\"right\"  ><h1>Ukupno : "+suma+"</h1></td>");
+      string2 =string2.concat("</tr>");
+      string2 =string2.concat("</table> ");
+	
+	string2 =string2.concat("</div>");
+	  
+	  
+  
+  document.getElementById("demo").innerHTML =string2; 
+   
+}
+
+function AddToArray()
+{
+termini.push( ['12','14:30;;19:30','14:30;;19:30','14:30;;19:30','14:30;;19:30','14:30;;19:30','14:30;;19:30','14:30;;19:30'] );
+//alert(termini.lenght);
+myFunction2();
+}
+
+function RemoveFromArray()
+{
+termini.pop(0);
+myFunction2();
+}
+
+function zauzetaSjedala()
+{
+var res="";
+var res2="";
+
+
+/*
+zauzetaStandard.push( [Gfilm,Gdan,Gtermin,lzstandard] );
+*/
+for (j = 0; j < zauzetaStandard.length; j++) 
+          {
+		     if(zauzetaStandard[j][0]==Gfilm && zauzetaStandard[j][1]==Gdan && zauzetaStandard[j][2]==Gtermin)
+			   {
+			   //alert("jupiii !!!");
+			   
+			   
+			   /*********************************/
+			   var test =zauzetaStandard[0][3];
+	           res = test.split(",");
+	            for (j = 0; j < res.length; j++) 
+                   {
+	             	  res2 = res[j].split(";;");
+             	if (res2[0] == 'undefined' || res2[0] == 'undefined') 
+	     		{
+             // Your variable is undefined
+                  }       
+	     	   else
+	    	   {
+		   //alert(res2[0]+"  "+res2[1]);
+	        	   document.getElementById('standard').rows[res2[0]].cells.item(res2[1]).innerHTML= "<img class=\"img3\" src=\"stolica/siva.jpg\"  width=\"20\" height=\"20\">";
+		      statstandard[res2[0]][res2[1]]=2;
+			  
+			  }
+		   
+	          }
+			   /********************************/
+			   }
+		  }
+
+for (j = 0; j < zauzetaVip.length; j++) 
+          {
+		  if(zauzetaVip[j][0]==Gfilm && zauzetaVip[j][1]==Gdan && zauzetaVip[j][2]==Gtermin)
+			   {
+			   var test =zauzetaVip[0][3];
+	           res = test.split(",");
+			   
+			    var test =zauzetaVip[0][3];
+	           res = test.split(",");
+	            for (j = 0; j < res.length; j++) 
+                   {
+	             	  res2 = res[j].split(";;");
+             	if (res2[0] == 'undefined' || res2[0] == 'undefined') 
+	     		{
+             // Your variable is undefined
+                  }       
+	     	   else
+	    	   {
+		   //alert(res2[0]+"  "+res2[1]);
+	        	   document.getElementById('vip').rows[res2[0]].cells.item(res2[1]).innerHTML= "<img class=\"img3\" src=\"stolica/siva.jpg\"  width=\"20\" height=\"20\">";
+		      statvip[res2[0]][res2[1]]=2;
+			  
+			  }
+		   
+	          }
+			   }
+		  }
+
+		  
+}
+
+</script>
+
+
+</body>
+</html>
